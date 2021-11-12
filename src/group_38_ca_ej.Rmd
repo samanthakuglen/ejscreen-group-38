@@ -29,9 +29,13 @@ ces <- read_csv(here("data", "ces3demographics.csv")) %>%
 # **2. Pollution Burden by Race** 
 
 ```{r}
+# Create a hexbin graph showing percentage of white population versus pollution score. 
+# Changed theme to minimal and added color gradient 
+
 ggplot(data = ces, aes(x = white_percent, y = ces_3_0_score)) +
-  geom_hex(color = "slategray3") +
-  theme_bw() +
+  geom_hex() +
+  scale_fill_gradient(low = "thistle1", high = "slateblue4") +
+  theme_minimal() +
   labs(x = "White Population (%)", 
        y = "Pollution Burden Score")
 ```
