@@ -17,6 +17,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 library(tidyverse)
 library(janitor)
 library(here)
+library(hexbin)
 ```
 
 ```{r}
@@ -29,8 +30,9 @@ ces <- read_csv(here("data", "ces3demographics.csv")) %>%
 
 ```{r}
 ggplot(data = ces, aes(x = white_percent, y = ces_3_0_score)) +
-  geom_point(color = "slategray3") +
+  geom_hex(color = "slategray3") +
   theme_bw() +
-  labs(x = "White Population (%)", y = "Pollution Burden Score")
+  labs(x = "White Population (%)", 
+       y = "Pollution Burden Score")
 ```
 
