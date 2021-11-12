@@ -5,6 +5,11 @@ date: "11/12/2021"
 output: html_document
 ---
 
+# **Overview**
+
+This report analyzes the differences in polluton burdens based on racial makeup of different areas. This uses data from the California Office of Environmental Health Hazard Assessment (OEHHA)'s CalEnviroScreen tool: https://oehha.ca.gov/calenviroscreen
+
+
 ```{r setup, include=FALSE, warning = FALSE, message = FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
@@ -15,7 +20,17 @@ library(here)
 ```
 
 ```{r}
+# Read in data 
 ces <- read_csv(here("data", "ces3demographics.csv")) %>% 
   clean_names()
+```
+
+# **2. Pollution Burden by Race** 
+
+```{r}
+ggplot(data = ces, aes(x = white_percent, y = ces_3_0_score)) +
+  geom_point(color = "slategray3") +
+  theme_bw() +
+  labs(x = "White Population (%)", y = "Pollution Burden Score")
 ```
 
