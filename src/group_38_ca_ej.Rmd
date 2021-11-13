@@ -5,12 +5,12 @@ date: "11/12/2021"
 output: html_document
 ---
 
-# **Overview**
+## **Overview**
 
-This report analyzes the differences in polluton burdens based on racial makeup of different areas. This uses data from the California Office of Environmental Health Hazard Assessment (OEHHA)'s CalEnviroScreen tool: https://oehha.ca.gov/calenviroscreen
+This report analyzes the differences in polluton burdens based on racial makeup of different areas. This uses data from the California Office of Environmental Health Hazard Assessment (OEHHA)'s [CalEnviroScreen tool](https://oehha.ca.gov/calenviroscreen).
 
-
-```{r setup, include=FALSE, warning = FALSE, message = FALSE}
+## Setup
+```{r setup, include=TRUE, warning = FALSE, message = FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 # Attach packages
@@ -21,22 +21,28 @@ library(hexbin)
 ```
 
 ```{r}
-# Read in data 
+# 2A: Read in data 
 ces <- read_csv(here("data", "ces3demographics.csv")) %>% 
   clean_names()
 ```
 
-# **2. Pollution Burden by Race** 
+## **2. Pollution Burden by Race** 
 
 ```{r}
-# Create a hexbin graph showing percentage of white population versus pollution score. 
-# Changed theme to minimal and added color gradient 
+# 2B: Create a scatterplot graph showing percentage of white population versus pollution score. 
+# 2C: Update graph type to hexbin, add appropriate axis labels
+# 2D: Changed theme to minimal and added color gradient 
+# 2E: Add figure caption, update code chunk options
 
 ggplot(data = ces, aes(x = white_percent, y = ces_3_0_score)) +
   geom_hex() +
   scale_fill_gradient(low = "thistle1", high = "slateblue4") +
   theme_minimal() +
   labs(x = "White Population (%)", 
-       y = "Pollution Burden Score")
+       y = "Pollution Burden Score",
+       title = "Cumulative Pollution Burden for White Population in California") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  guides(fill = guide_legend("Count")) # update legend title
 ```
 
+**Figure 1.** CalEnviroScreen 3.0 aggregate score of pollution burden and population characteristics for the white demographic in California. Data: 2010 United States Census and Office of Environmental Health Hazard Assessment (OEHHA) at the California Environmental Protection Agency (CalEPA).
