@@ -2,14 +2,18 @@
 title: "Group 38 CA pollution burden"
 author: "Conner Smith and Samantha Kuglen"
 date: "11/12/2021"
-output: html_document
+output: 
+  html_document: 
+    toc: yes
+    toc_depth: 2
+    theme: flatly
 ---
 
-## **Overview**
+## **1. Overview**
 
-This report analyzes the differences in polluton burdens based on racial makeup of different areas. This uses data from the California Office of Environmental Health Hazard Assessment (OEHHA)'s [CalEnviroScreen tool](https://oehha.ca.gov/calenviroscreen).
+This report analyzes the differences in pollution burdens based on racial makeup of different areas from 2010 census data. This uses data from the California Office of Environmental Health Hazard Assessment (OEHHA)'s [CalEnviroScreen tool](https://oehha.ca.gov/calenviroscreen).
 
-## Setup
+## **2. Setup**
 ```{r setup, include=TRUE, warning = FALSE, message = FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
@@ -26,13 +30,14 @@ ces <- read_csv(here("data", "ces3demographics.csv")) %>%
   clean_names()
 ```
 
-## **2. Pollution Burden by Race** 
+## **3. Pollution Burden by White Population Proportion** 
 
 ```{r}
 # 2B: Create a scatterplot graph showing percentage of white population versus pollution score. 
 # 2C: Update graph type to hexbin, add appropriate axis labels
 # 2D: Changed theme to minimal and added color gradient 
 # 2E: Add figure caption, update code chunk options
+# 2F: Added summary below graph 
 
 ggplot(data = ces, aes(x = white_percent, y = ces_3_0_score)) +
   geom_hex() +
@@ -45,4 +50,10 @@ ggplot(data = ces, aes(x = white_percent, y = ces_3_0_score)) +
   guides(fill = guide_legend("Count")) # update legend title
 ```
 
-**Figure 1.** CalEnviroScreen 3.0 aggregate score of pollution burden and population characteristics for the white demographic in California. Data: 2010 United States Census and Office of Environmental Health Hazard Assessment (OEHHA) at the California Environmental Protection Agency (CalEPA).
+**Figure 1.** *CalEnviroScreen 3.0 aggregate score of pollution burden by proportion of white people in the population. The count refers to the number of census tracts that fall in a given bin on the graph. Darker colors indicate a higher number of tracts per bin. Data: 2010 United States Census and OEHHA.*
+
+This graph shows a clear negative correlation between the proportion of white people in a census tract and the aggregate pollution burden. Census tracts with white population share above 75 percent showed pollution scores in the lowest quartile of the range on average. The declining pollution burden with increasing whiteness in a given census tract provides evidence for the fact that low-income communities face higher exposure to environmental harm.
+
+# **4. References**
+
+California Office of Environmental Health Hazard Assesment. CalEnviroScreen 3.0. (2018). https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-30
